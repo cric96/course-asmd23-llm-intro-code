@@ -3,7 +3,6 @@ package it.unibo.chat;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.ollama.OllamaChatModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,6 @@ class ChatAgentBase implements ChatAgent {
     }
 
     public String interact() {
-        System.out.println("Message flow: " + messageFlow);
         var chatResponse = model.chat(messageFlow);
         String responseText = chatResponse.aiMessage().text();
         messageFlow.add(chatResponse.aiMessage());

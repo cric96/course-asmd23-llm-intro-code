@@ -2,6 +2,10 @@ package it.unibo.prompt;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 
+/**
+ * An abstract base class for all prompting based agents.
+ * It provides the model to be used for chatting and a base prompt for the agent.
+ */
 public abstract class BasePromptBasedAgent implements PromptBasedAgent {
     private final String promptBase;
     private final ChatLanguageModel model;
@@ -9,7 +13,11 @@ public abstract class BasePromptBasedAgent implements PromptBasedAgent {
         this.promptBase = promptBase;
         this.model = model;
     }
-    
+
+    /**
+     * Get the model used by the agent.
+     * @return The model used by the agent.
+     */
     protected ChatLanguageModel getModel() {
         return model;
     }
@@ -17,7 +25,12 @@ public abstract class BasePromptBasedAgent implements PromptBasedAgent {
     public String getPromptBase() {
         return promptBase;
     }
-    
+
+    /**
+     * Prepare the message to be sent to the model.
+     * @param userMessage The user's message.
+     * @return The message combined with the base prompt.
+     */
     protected String prepareMessage(String userMessage) {
         return getPromptBase() + userMessage;
     }

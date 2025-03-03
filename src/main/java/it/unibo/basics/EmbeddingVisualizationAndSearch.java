@@ -1,7 +1,7 @@
 package it.unibo.basics;
 
 import dev.langchain4j.model.ollama.OllamaEmbeddingModel;
-import it.unibo.utils.Tensor;
+import it.unibo.utils.Vector;
 import smile.plot.swing.ScatterPlot;
 
 import java.io.IOException;
@@ -32,22 +32,22 @@ public class EmbeddingVisualizationAndSearch {
             .logResponses(true)
             .build(); // Assume this is implemented
 
-        List<Tensor> datasetEmbeddings = datasetFromResource.stream()
+        List<Vector> datasetEmbeddings = datasetFromResource.stream()
             .map(embeddingModel::embed).map(response -> response.content().vector())
-            .map(Tensor::fromFloatArray)
+            .map(Vector::fromFloatArray)
             .toList();
 
 
-        Tensor questionOnSpace = Tensor.fromFloatArray(
+        Vector questionOnSpace = Vector.fromFloatArray(
             embeddingModel.embed("Where is Jupyter?").content().vector()
         );
 
-        Tensor questionOnAnime = Tensor.fromFloatArray(
+        Vector questionOnAnime = Vector.fromFloatArray(
             embeddingModel.embed("Give more info about Naruto!").content().vector()
         );
 
         double[][] allEmbeddings = Stream.concat(Stream.of(questionOnSpace, questionOnAnime), datasetEmbeddings.stream())
-            .map(Tensor::getData).toArray(double[][]::new);
+            .map(Vector::getData).toArray(double[][]::new);
 
         var tsneFlatten = smile.manifold.TSNE.fit(allEmbeddings);
 
@@ -66,7 +66,7 @@ public class EmbeddingVisualizationAndSearch {
         System.out.println("Closest to Jupyter: " + finClosestToJupyter.stream().map(datasetFromResource::get).toList());
     }
 
-    private static List<Integer> findNClosest(Tensor question, List<Tensor> dataset, int howMuch) {
+    private static List<Integer> findNClosest(Vector question, List<Vector> dataset, int howMuch) {
         var indexes = Stream.iterate(0, i -> i + 1).limit(dataset.size()).toList();
         return indexes.stream()
             .sorted(Comparator.comparingDouble(a -> dataset.get(a).distance(question)))

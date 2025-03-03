@@ -1,7 +1,7 @@
 package it.unibo.basics;
 
 import dev.langchain4j.model.ollama.OllamaEmbeddingModel;
-import it.unibo.utils.Tensor;
+import it.unibo.utils.Vector;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,13 +15,13 @@ public class EmbeddingBaseExample {
             .logResponses(true)
             .build();
 
-        List<Tensor> result = Stream.of("Hello", "how", "are", "you")
+        List<Vector> result = Stream.of("Hello", "how", "are", "you")
             .map(embeddingModel::embed)
             .map(response -> response.content().vector())
-            .map(Tensor::fromFloatArray)
+            .map(Vector::fromFloatArray)
             .toList();
 
-        Tensor anotherSentence = Tensor.fromFloatArray(
+        Vector anotherSentence = Vector.fromFloatArray(
             embeddingModel.embed("Ciao").content().vector()
         );
 
