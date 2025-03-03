@@ -17,4 +17,8 @@ public abstract class BasePromptBasedAgent implements PromptBasedAgent {
     public String getPromptBase() {
         return promptBase;
     }
+    
+    protected String prepareMessage(String userMessage) {
+        return getPromptBase() + userMessage;
+    }
 }

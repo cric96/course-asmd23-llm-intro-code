@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class SelfConsistencyAgent extends BasePromptBasedAgent {
     private final int consistencyLevel;
-    
+
     public SelfConsistencyAgent(ChatLanguageModel model, String promptBase, int consistencyLevel) {
         super(model, promptBase);
         this.consistencyLevel = consistencyLevel;
@@ -18,8 +18,10 @@ public class SelfConsistencyAgent extends BasePromptBasedAgent {
 
     @Override
     public String ask(String userMessage) {
-        var replies = IntStream.range(0, consistencyLevel).mapToObj(i -> getModel().chat(UserMessage.from(getPromptBase() + userMessage))).toList();
-        var groupedReplies = replies.stream().collect(Collectors.groupingBy(data -> data.aiMessage().text()));
+        var replies = IntStream.range(0, consistencyLevel)
+            .mapToObj(i -> getModel().chat(UserMessage.from(this.prepareMessage(userMessage)))).toList();
+        var groupedReplies = replies.stream()
+            .collect(Collectors.groupingBy(data -> data.aiMessage().text()));
         // Find the most common reply
         System.out.println("replies: " + replies.stream().map(data -> data.aiMessage().text()).toList());
         return groupedReplies.entrySet().stream().max(Comparator.comparingInt(entry -> entry.getValue().size())).get().getKey();
