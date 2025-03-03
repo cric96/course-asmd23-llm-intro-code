@@ -1,5 +1,6 @@
 package it.unibo.prompt;
 
+import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 
 /**
@@ -24,6 +25,13 @@ public abstract class BasePromptBasedAgent implements PromptBasedAgent {
 
     public String getPromptBase() {
         return promptBase;
+    }
+
+    public String ask(String userMessage) {
+        System.out.println(this.prepareMessage(userMessage));
+        return getModel().chat(
+            UserMessage.from(this.prepareMessage(userMessage))
+        ).aiMessage().text();
     }
 
     /**
