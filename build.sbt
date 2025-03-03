@@ -7,6 +7,7 @@ lazy val root = (project in file("."))
     name := "asmd-llm-code",
     libraryDependencies += "dev.langchain4j" % "langchain4j" % "1.0.0-beta1",
     libraryDependencies += "dev.langchain4j" % "langchain4j-ollama" % "1.0.0-beta1",
-    libraryDependencies += "com.github.haifengl" %% "smile-scala" % "4.2.0",
-    libraryDependencies += "com.github.haifengl" % "smile-plot" % "4.2.0"
+    libraryDependencies += "com.github.haifengl" %% "smile-scala" % "4.3.0",
+    libraryDependencies += "com.github.haifengl" %% "smile-scala" % "4.3.0",
+    libraryDependencies += "com.github.haifengl" % "smile-plot" % "4.3.0"
   )
