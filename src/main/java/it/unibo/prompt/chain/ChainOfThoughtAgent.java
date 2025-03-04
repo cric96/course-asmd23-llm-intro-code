@@ -1,8 +1,7 @@
-package it.unibo.prompt;
+package it.unibo.prompt.chain;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
-
-import java.util.List;
+import it.unibo.prompt.BasePromptBasedAgent;
 
 public class ChainOfThoughtAgent extends BasePromptBasedAgent {
 
@@ -14,5 +13,9 @@ public class ChainOfThoughtAgent extends BasePromptBasedAgent {
     protected String prepareMessage(String userMessage) {
         return userMessage + getPromptBase();
     }
-
+    
+    @Override
+    public String toString() {
+        return "ChainOfThoughtAgent";
+    }
 }

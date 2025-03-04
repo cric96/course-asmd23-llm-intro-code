@@ -1,6 +1,7 @@
-package it.unibo.prompt;
+package it.unibo.prompt.few;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
+import it.unibo.prompt.BasePromptBasedAgent;
 
 import java.util.List;
 
@@ -31,5 +32,10 @@ public class FewShotAgent extends BasePromptBasedAgent {
         return "Giving this knowledge:" + questions.stream()
             .map(qa -> "Q:" + qa.question + "A:" + qa.answer)
             .reduce("", (acc, qa) -> acc + " \n " + qa) + "\n reply to the following question:";
+    }
+
+    @Override
+    public String toString() {
+        return "FewShotAgent";
     }
 }

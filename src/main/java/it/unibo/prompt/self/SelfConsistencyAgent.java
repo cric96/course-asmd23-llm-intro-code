@@ -1,7 +1,6 @@
-package it.unibo.prompt;
+package it.unibo.prompt.self;
 
-import dev.langchain4j.data.message.UserMessage;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import it.unibo.prompt.PromptBasedAgent;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -35,5 +34,10 @@ public class SelfConsistencyAgent implements PromptBasedAgent {
         System.out.println("replies: " + replies.stream().map(data -> data).toList());
         // Find the most common reply
         return groupedReplies.entrySet().stream().max(Comparator.comparingInt(entry -> entry.getValue().size())).get().getKey();
+    }
+
+    @Override
+    public String toString() {
+        return "SelfConsistencyAgent of " + agent.toString();
     }
 }

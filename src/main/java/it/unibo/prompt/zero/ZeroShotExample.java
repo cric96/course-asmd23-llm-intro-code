@@ -1,23 +1,25 @@
-package it.unibo.prompt;
+package it.unibo.prompt.zero;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 
-public class ChainOfThoughtAgentExample {
+public class ZeroShotExample {
     public static void main(String[] args) {
         final ChatLanguageModel model = OllamaChatModel.builder()
             .baseUrl("http://localhost:11434")
             .logRequests(true)
             .logResponses(true)
-            .modelName("smollm")
+            .modelName("qwen2.5:3b")
             .numPredict(128)
             .build();
-        final var selfConsistency = new ChainOfThoughtAgent(model);
+        final var zeroShot = new ZeroShotAgent(model, "Just reply with the RIGHT number.");
         final var query = """
             Q: Today I have 6 apples. Tomorrow I buy 3 more. Yesterday I ate 6
-            apples, How many apples do I have TODAY?
+            apples, How many apples do I have (today)?
         """;
-        final var response = selfConsistency.ask(query);
-        System.out.println("Response: " + response);
+        for (int i = 0; i < 20; i++) {
+            var response = zeroShot.ask(query);
+            System.out.println("Response: " + response);
+        }
     }
 }

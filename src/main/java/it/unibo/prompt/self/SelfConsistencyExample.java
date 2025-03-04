@@ -1,7 +1,8 @@
-package it.unibo.prompt;
+package it.unibo.prompt.self;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
+import it.unibo.prompt.zero.ZeroShotAgent;
 
 public class SelfConsistencyExample {
     public static void main(String[] args) {
