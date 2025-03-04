@@ -11,7 +11,7 @@ public class FewShotAgentExample {
             .baseUrl("http://localhost:11434")
             .logRequests(true)
             .logResponses(true)
-            .modelName("smollm")
+            .modelName("qwen2.5:1.5b")
             .numPredict(128)
             .build();
         final var examples = List.of(

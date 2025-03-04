@@ -1,5 +1,6 @@
 package it.unibo.basics;
 
+import dev.langchain4j.model.embedding.DimensionAwareEmbeddingModel;
 import dev.langchain4j.model.ollama.OllamaEmbeddingModel;
 import it.unibo.utils.Vector;
 
@@ -8,7 +9,7 @@ import java.util.stream.Stream;
 
 public class EmbeddingBaseExample {
     public static void main(String[] args) {
-        OllamaEmbeddingModel embeddingModel = OllamaEmbeddingModel.builder()
+        DimensionAwareEmbeddingModel embeddingModel = OllamaEmbeddingModel.builder()
             .baseUrl("http://localhost:11434")
             .modelName("mxbai-embed-large")
             .logRequests(true)
@@ -20,20 +21,16 @@ public class EmbeddingBaseExample {
             .map(response -> response.content().vector())
             .map(Vector::fromFloatArray)
             .toList();
-
+        System.out.println(result.getFirst().getData().length);
         Vector anotherSentence = Vector.fromFloatArray(
-            embeddingModel.embed("Ciao").content().vector()
+            embeddingModel.embed("Hi").content().vector()
         );
-
         List<Double> distances = result.stream()
             .map(vector -> vector.distance(anotherSentence))
             .toList();
-        
-
         List<Double> similarity = result.stream()
             .map(vector -> vector.cosineSimilarity(anotherSentence))
             .toList();
-
         System.out.println("Distances: " + distances);
         System.out.println("Similarity: " + similarity);
     }

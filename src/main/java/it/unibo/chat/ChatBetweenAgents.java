@@ -14,7 +14,7 @@ public class ChatBetweenAgents {
             .baseUrl("http://localhost:11434")
             .logRequests(true)
             .logResponses(true)
-            .temperature(0.0)
+            .temperature(1.0)
             .modelName("smollm:360m")
             .numPredict(128)
             .build();

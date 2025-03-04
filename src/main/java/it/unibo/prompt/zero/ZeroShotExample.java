@@ -11,6 +11,7 @@ public class ZeroShotExample {
             .logResponses(true)
             .modelName("qwen2.5:3b")
             .numPredict(128)
+            .temperature(0.0)
             .build();
         final var zeroShot = new ZeroShotAgent(model, "Just reply with the RIGHT number.");
         final var query = """

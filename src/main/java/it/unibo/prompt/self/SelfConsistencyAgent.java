@@ -31,7 +31,7 @@ public class SelfConsistencyAgent implements PromptBasedAgent {
             .toList();
         var groupedReplies = replies.stream()
             .collect(Collectors.groupingBy(data -> data));
-        System.out.println("replies: " + replies.stream().map(data -> data).toList());
+        System.out.println("replies: " + replies.stream().toList());
         // Find the most common reply
         return groupedReplies.entrySet().stream().max(Comparator.comparingInt(entry -> entry.getValue().size())).get().getKey();
     }

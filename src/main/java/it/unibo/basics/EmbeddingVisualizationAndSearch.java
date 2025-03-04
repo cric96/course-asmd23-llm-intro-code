@@ -69,7 +69,7 @@ public class EmbeddingVisualizationAndSearch {
     private static List<Integer> findNClosest(Vector question, List<Vector> dataset, int howMuch) {
         var indexes = Stream.iterate(0, i -> i + 1).limit(dataset.size()).toList();
         return indexes.stream()
-            .sorted(Comparator.comparingDouble(a -> dataset.get(a).distance(question)))
+            .sorted(Comparator.comparingDouble(a -> dataset.get(a).cosineSimilarity(question)))
             .limit(howMuch)
             .toList();
     }

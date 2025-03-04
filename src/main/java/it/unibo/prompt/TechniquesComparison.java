@@ -19,7 +19,7 @@ public class TechniquesComparison {
             .baseUrl("http://localhost:11434")
             .logRequests(true)
             .logResponses(true)
-            .modelName("smollm")
+            .modelName("qwen2.5:3b")
             .numPredict(128)
             .build();
         final DimensionAwareEmbeddingModel embeddingModel = OllamaEmbeddingModel.builder()
