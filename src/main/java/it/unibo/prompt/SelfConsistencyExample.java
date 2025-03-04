@@ -12,7 +12,8 @@ public class SelfConsistencyExample {
             .modelName("qwen2.5:3b")
             .numPredict(128)
             .build();
-        final var selfConsistency = new SelfConsistencyAgent(model, "Just reply with the RIGHT number.", 10);
+        final var zeroShot = new ZeroShotAgent(model, "Just reply with the RIGHT number.");
+        final var selfConsistency = new SelfConsistencyAgent(zeroShot, 10);
         final var query = """
             Q: Today I have 6 apples. Tomorrow I buy 3 more. Yesterday I ate 6
             apples, How many apples do I have TODAY?

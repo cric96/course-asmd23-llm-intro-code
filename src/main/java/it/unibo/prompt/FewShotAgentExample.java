@@ -11,16 +11,15 @@ public class FewShotAgentExample {
             .baseUrl("http://localhost:11434")
             .logRequests(true)
             .logResponses(true)
-            .modelName("smollm:360m")
+            .modelName("smollm")
             .numPredict(128)
             .build();
-
         final var examples = List.of(
                 FewShotAgent.QuestionAnswer.from("Hi there!", "OK"),
                 FewShotAgent.QuestionAnswer.from("You won a free vacation!", "SPAM"),
                 FewShotAgent.QuestionAnswer.from("Urgent: Claim your prize now!", "SPAM")
         );
-
+        final var empty = List.of();
         final var agent = new FewShotAgent(model, examples);
         final var query = """
             Classify the following email:

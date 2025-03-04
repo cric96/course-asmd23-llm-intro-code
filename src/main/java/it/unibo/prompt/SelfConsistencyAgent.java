@@ -12,22 +12,27 @@ import java.util.stream.IntStream;
  * and returning the most common reply.
  * This agent is useful for generating more consistent replies.
  */
-public class SelfConsistencyAgent extends BasePromptBasedAgent {
+public class SelfConsistencyAgent implements PromptBasedAgent {
     private final int consistencyLevel;
-
-    public SelfConsistencyAgent(ChatLanguageModel model, String promptBase, int consistencyLevel) {
-        super(model, promptBase);
+    private final PromptBasedAgent agent;
+    public SelfConsistencyAgent(PromptBasedAgent wrapped, int consistencyLevel) {
         this.consistencyLevel = consistencyLevel;
+        this.agent = wrapped;
+    }
+
+    @Override
+    public String getPromptBase() {
+        return agent.getPromptBase();
     }
 
     @Override
     public String ask(String userMessage) {
         var replies = IntStream.range(0, consistencyLevel)
-            .mapToObj(i -> getModel().chat(UserMessage.from(this.prepareMessage(userMessage))))
+            .mapToObj(i -> agent.ask(userMessage))
             .toList();
         var groupedReplies = replies.stream()
-            .collect(Collectors.groupingBy(data -> data.aiMessage().text()));
-        System.out.println("replies: " + replies.stream().map(data -> data.aiMessage().text()).toList());
+            .collect(Collectors.groupingBy(data -> data));
+        System.out.println("replies: " + replies.stream().map(data -> data).toList());
         // Find the most common reply
         return groupedReplies.entrySet().stream().max(Comparator.comparingInt(entry -> entry.getValue().size())).get().getKey();
     }
