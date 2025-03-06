@@ -61,7 +61,7 @@ public class EmbeddingVisualizationAndSearch {
 
         var finClosestToNaruto = findNClosest(questionOnAnime, datasetEmbeddings, 5);
         var finClosestToJupyter = findNClosest(questionOnSpace, datasetEmbeddings, 5);
-
+        
         System.out.println("Closest to Naruto: " + finClosestToNaruto.stream().map(datasetFromResource::get).toList());
         System.out.println("Closest to Jupyter: " + finClosestToJupyter.stream().map(datasetFromResource::get).toList());
     }
