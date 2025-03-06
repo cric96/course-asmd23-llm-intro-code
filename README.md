@@ -25,6 +25,15 @@ ollama pull mxbai-embed-large
 ollama pull qwen2.5:3b
 ```
 
+To check the available models, run:
+```bash
+ollama list
+```
+To verify the local installation, just run:
+```bash
+ollama run smollm:128m
+```
+
 For this primer, we'll use:
 - `smollm:128m` - a small LLM model
 - `mxbai-embed-large` - a large embedding model
