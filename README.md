@@ -55,3 +55,7 @@ The project is organized into three sections:
 - **`it.unibo.chat`**: Contains examples of agent-to-agent interactions
 
 - **`it.unibo.prompt`**: Demonstrates prompt engineering techniques to enhance LLM performance
+
+## Advanced materials
+
+For the curious, here is an example where we create a "semi-autonomous" pipeline for code generation: https://github.com/nicolasfara/experiments-2025-acm-iot-ac-llm.
